@@ -14,6 +14,10 @@
         <version>3.2.8</version>
     </parent>
 
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
     <groupId>center.myfit</groupId>
     <artifactId>myfit-spring-boot-starter</artifactId>
     <version>0.3-SNAPSHOT</version>
@@ -47,6 +51,32 @@
                 <configuration>
                     <preparationGoals>clean package</preparationGoals>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>10.20.2</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

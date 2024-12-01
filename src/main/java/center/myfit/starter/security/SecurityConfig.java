@@ -1,5 +1,6 @@
 package center.myfit.starter.security;
 
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +14,21 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-
+/**
+ * Конфигурация безопасности приложения.
+ */
 @Configuration
 @EnableMethodSecurity(jsr250Enabled = true)
 public class SecurityConfig {
 
+  /**
+   * Конфигурация {@link SecurityFilterChain}.
+   *
+   * @param http {@link HttpSecurity}.
+   * @param corsUrl - url с которого разрешены запросы к серверу.
+   * @return {@link SecurityFilterChain}.
+   * @throws Exception если что-то пошло не так.
+   */
   @Bean
   public SecurityFilterChain securityFilterChain(
       HttpSecurity http, @Value("${cors.url}") String corsUrl) throws Exception {
