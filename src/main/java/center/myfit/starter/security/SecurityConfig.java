@@ -24,7 +24,7 @@ public class SecurityConfig {
   /**
    * Конфигурация {@link SecurityFilterChain}.
    *
-   * @param http {@link HttpSecurity}.
+   * @param http    {@link HttpSecurity}.
    * @param corsUrl - url с которого разрешены запросы к серверу.
    * @return {@link SecurityFilterChain}.
    * @throws Exception если что-то пошло не так.
