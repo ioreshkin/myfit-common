@@ -22,21 +22,21 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
   /**
-  * Конфигурация {@link SecurityFilterChain}.
-  *
-  * @param http    {@link HttpSecurity}.
-  * @param corsUrl - url с которого разрешены запросы к серверу.
-  * @return {@link SecurityFilterChain}.
-  * @throws Exception если что-то пошло не так.
-  */
+   * Конфигурация {@link SecurityFilterChain}.
+   *
+   * @param http    {@link HttpSecurity}.
+   * @param corsUrl - url с которого разрешены запросы к серверу.
+   * @return {@link SecurityFilterChain}.
+   * @throws Exception если что-то пошло не так.
+   */
   @Bean
   public SecurityFilterChain securityFilterChain(
-          HttpSecurity http, @Value("${cors.url}") String corsUrl) throws Exception {
+      HttpSecurity http, @Value("${cors.url}") String corsUrl) throws Exception {
 
     http.csrf(AbstractHttpConfigurer::disable)
-            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-            .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
+        .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
     if (StringUtils.hasText(corsUrl)) {
       http.cors(cors -> cors.configurationSource(corsConfigurationSource(corsUrl)));
     }
