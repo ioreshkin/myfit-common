@@ -4,11 +4,12 @@ package center.myfit.starter.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.URL;
 
 /**
  * DTO for creating an exercise.
  */
-public record CreateExerciseDto(
+public record ExerciseDto(
     Long id,
 
     @NotBlank(message = "Заголовок не может быть пустым")
@@ -18,8 +19,9 @@ public record CreateExerciseDto(
     @NotBlank(message = "Описание не может быть пустым")
     String description,
 
-    @Pattern(regexp = "^(http|https)://.*|^$", message = "Не верный формат ссылки на видео")
-    String videoUrl, // Используем @Pattern для валидации URL
+    @Pattern(regexp = "^$|^(http|https)://.*", message = "Ссылка должна быть пустой или начинаться с http или https")
+    @URL(message = "Не верный формат ссылки на видео")
+    String videoUrl,
 
     ImageDto image
 ) {
