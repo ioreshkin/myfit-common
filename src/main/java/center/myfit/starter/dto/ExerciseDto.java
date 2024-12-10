@@ -19,7 +19,8 @@ public record ExerciseDto(
     @NotBlank(message = "Описание не может быть пустым")
     String description,
 
-    @Pattern(regexp = "^$|^(http|https)://.*", message = "Ссылка должна быть пустой или начинаться с http или https")
+    @Pattern(regexp = "^$|^(http|https)://.*",
+        message = "Ссылка должна быть пустой или начинаться с http или https")
     @URL(message = "Не верный формат ссылки на видео")
     String videoUrl,
 
