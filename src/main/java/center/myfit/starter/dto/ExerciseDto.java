@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.URL;
 /** DTO for creating an exercise. */
 public record ExerciseDto(
     Long id,
-    @NotBlank String keycloakId,
+    String keycloakId,
     @NotBlank(message = "Заголовок не может быть пустым")
     @Size(min = 3, max = 64, message = "Длинна заголовка должна быть в пределах 3-64 символа")
     String title,
