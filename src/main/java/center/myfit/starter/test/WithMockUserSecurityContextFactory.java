@@ -16,7 +16,7 @@ public class WithMockUserSecurityContextFactory
   public SecurityContext createSecurityContext(WithMockUser annotation) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("email", annotation.email());
-    claims.put("keycloakId", annotation.keycloakId());
+    claims.put("sub", annotation.keycloakId());
     HashMap<String, Object> headers = new HashMap<>();
     headers.put("alg", "RS256");
     Jwt principal = new Jwt("token", null, null, headers, claims);

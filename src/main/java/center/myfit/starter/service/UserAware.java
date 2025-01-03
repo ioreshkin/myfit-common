@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
  * @param <T> - тип объекта пользователя в системе.
  */
 public interface UserAware<T> {
-  String KEYCLOAK_ID_FIELD = "keycloakId";
+  String KEYCLOAK_ID_FIELD = "sub";
 
   /**
    * Получение keycloakId пользователя.

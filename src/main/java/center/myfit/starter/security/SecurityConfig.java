@@ -14,9 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-/**
- * Конфигурация безопасности приложения.
- */
+/** Конфигурация безопасности приложения. */
 @Configuration
 @EnableMethodSecurity(jsr250Enabled = true)
 public class SecurityConfig {
@@ -24,7 +22,7 @@ public class SecurityConfig {
   /**
    * Конфигурация {@link SecurityFilterChain}.
    *
-   * @param http    {@link HttpSecurity}.
+   * @param http {@link HttpSecurity}.
    * @param corsUrl - url с которого разрешены запросы к серверу.
    * @return {@link SecurityFilterChain}.
    * @throws Exception если что-то пошло не так.
@@ -34,6 +32,7 @@ public class SecurityConfig {
       HttpSecurity http, @Value("${cors.url}") String corsUrl) throws Exception {
 
     http.csrf(AbstractHttpConfigurer::disable)
+        .httpBasic(Customizer.withDefaults())
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
         .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
