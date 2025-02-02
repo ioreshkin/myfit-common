@@ -5,7 +5,7 @@
     <scm>
         <developerConnection>scm:git:https://github.com/ioreshkin/myfit-common.git
         </developerConnection>
-      <tag>HEAD</tag>
+      <tag>myfit-spring-boot-starter-0.9</tag>
   </scm>
 
     <parent>
@@ -20,7 +20,7 @@
 
     <groupId>center.myfit</groupId>
     <artifactId>myfit-spring-boot-starter</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.9</version>
     <packaging>jar</packaging>
 
     <dependencies>
