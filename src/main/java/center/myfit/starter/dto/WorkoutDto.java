@@ -26,5 +26,5 @@ public record WorkoutDto(
   ) {}
 
   /** Dto for iterations of exercise. */
-  public record IterationDto(Integer repeats, Float weight, Integer rpe) {}
+  public record IterationDto(Integer repeats, Float weight) {}
 }
