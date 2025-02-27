@@ -34,7 +34,8 @@ public class SecurityConfig {
     http.csrf(AbstractHttpConfigurer::disable)
         .httpBasic(Customizer.withDefaults())
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .authorizeHttpRequests(
+            auth -> auth.requestMatchers("/actuator/**").permitAll().anyRequest().authenticated())
         .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
     if (StringUtils.hasText(corsUrl)) {
       http.cors(cors -> cors.configurationSource(corsConfigurationSource(corsUrl)));
