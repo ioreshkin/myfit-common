@@ -2,6 +2,7 @@ package center.myfit.starter.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 import org.hibernate.validator.constraints.URL;
 
 /** DTO for creating an exercise. */
@@ -17,4 +18,5 @@ public record ExerciseDto(
 
     @URL(protocol = "https", message = "Не верный формат ссылки на видео") String videoUrl,
 
+    List<String> tags,
     ImageDto image) {}

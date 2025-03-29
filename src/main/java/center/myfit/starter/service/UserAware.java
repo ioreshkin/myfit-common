@@ -1,8 +1,9 @@
 package center.myfit.starter.service;
 
-import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import center.myfit.starter.exception.UnauthorizedException;
+import io.micrometer.common.util.StringUtils;
+import java.util.Objects;
+import java.util.Optional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -14,7 +15,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
  */
 public interface UserAware<T> {
   String KEYCLOAK_ID_FIELD = "sub";
-  Logger logger = LoggerFactory.getLogger(UserAware.class);
 
   /**
    * Получение keycloakId пользователя.
@@ -22,17 +22,16 @@ public interface UserAware<T> {
    * @return keycloakId текущего пользователя.
    */
   default String getKeycloakId() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    logger.debug("authentication" + authentication.getName());
-    Object principal = authentication.getPrincipal();
-    logger.debug("principal" + principal.toString());
-    logger.debug("instanceof Jwt " + String.valueOf(principal instanceof Jwt));
-    Jwt jwt = (Jwt) principal;
-    Map<String, Object> claims = jwt.getClaims();
-    logger.debug("claims " + claims.toString());
-    String keycloakId = (String) claims.get(KEYCLOAK_ID_FIELD);
-    logger.debug("keycloakId " + keycloakId);
-    return keycloakId;
+    return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+        .map(Authentication::getPrincipal)
+        .filter(Jwt.class::isInstance)
+        .map(Jwt.class::cast)
+        .map(Jwt::getClaims)
+        .map(it -> it.get(KEYCLOAK_ID_FIELD))
+        .filter(Objects::nonNull)
+        .map(String.class::cast)
+        .filter(StringUtils::isNotBlank)
+        .orElseThrow(() -> new UnauthorizedException("Неизвестный пользователь!"));
   }
 
   /**
