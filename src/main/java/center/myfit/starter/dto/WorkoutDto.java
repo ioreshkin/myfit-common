@@ -16,6 +16,7 @@ public record WorkoutDto(
     String title,
     @NotNull @NotEmpty List<ExerciseWorkoutDto> exercises,
     @NotBlank(message = "Описание не может быть пустым") String description,
+    List<String> tags,
     ImageDto image
 ) {
   /** Dto for bindings exercise with workout. */
